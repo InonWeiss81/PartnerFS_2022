@@ -1,0 +1,126 @@
+{
+  "CustomersList": [
+    {
+      "firstName": "יוסי",
+      "lastName": "כהן",
+      "idNumber": "226349264",
+      "address": {
+        "city": "רעננה",
+        "street": "אחוזה",
+        "number": "12",
+        "zipCode": "2223334"
+      },
+      "contractList": [
+        {
+          "contractId": "123456",
+          "contractName": "יעל כהן",
+          "packagesList": [
+            {
+              "packageType": 0,
+              "packageName": "חבילת 500 הודעות",
+              "packageQuantity": 500,
+              "packageBalance": 232
+            },
+            {
+              "packageType": 1,
+              "packageName": "חבילת 1000 דקות שיחה",
+              "packageQuantity": 1000,
+              "packageBalance": 745
+            }
+          ]
+        },
+        {
+          "contractId": "444777",
+          "contractName": "יניב כהן",
+          "packagesList": [
+            {
+              "packageType": 1,
+              "packageName": "חבילת 1000 דקות שיחה",
+              "packageQuantity": 1000,
+              "packageBalance": 365
+            },
+            {
+              "packageType": 2,
+              "packageName": "חבילת 200GB גלישה",
+              "packageQuantity": 200,
+              "packageBalance": 13
+            }
+          ]
+        },
+        {
+          "contractId": "212233",
+          "contractName": "איתי כהן",
+          "packagesList": [
+            {
+              "packageType": 0,
+              "packageName": "חבילת 500 הודעות",
+              "packageQuantity": 500,
+              "packageBalance": 173
+            },
+            {
+              "packageType": 1,
+              "packageName": "חבילת 5000 דקות שיחה",
+              "packageQuantity": 5000,
+              "packageBalance": 1532
+            },
+            {
+              "packageType": 2,
+              "packageName": "חבילת 200GB גלישה",
+              "packageQuantity": 200,
+              "packageBalance": 123
+            },
+            {
+              "packageType": 3,
+              "packageName": "חבילת 1000 דקות שיחה לחו\"ל",
+              "packageQuantity": 1000,
+              "packageBalance": 12
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "firstName": "אסף",
+      "lastName": "ישראלי",
+      "idNumber": "333404796",
+      "address": {
+        "city": "חיפה",
+        "street": "הנביאים",
+        "number": "24",
+        "zipCode": "1334254"
+      },
+      "contractList": [
+        {
+          "contractId": "544335",
+          "contractName": "יהב ישראלי",
+          "packagesList": [
+            {
+              "packageType": 2,
+              "packageName": "חבילת 100GB גלישה",
+              "packageQuantity": 100,
+              "packageBalance": 31
+            },
+            {
+              "packageType": 1,
+              "packageName": "חבילת 1000 דקות שיחה",
+              "packageQuantity": 1000,
+              "packageBalance": 324
+            }
+          ]
+        },
+        {
+          "contractId": "444777",
+          "contractName": "ירדן ישראלי",
+          "packagesList": [
+            {
+              "packageType": 0,
+              "packageName": "חבילת 500 הודעות",
+              "packageQuantity": 500,
+              "packageBalance": 198
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
