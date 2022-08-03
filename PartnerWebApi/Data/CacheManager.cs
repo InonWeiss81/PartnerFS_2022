@@ -7,12 +7,12 @@ namespace PartnerWebApi.Data
     public class CacheManager<TItem>
     {
         private static readonly TimeSpan TIME_SPAN = new TimeSpan(1, 0, 0);
-        private MemoryCache _cache = new MemoryCache(new MemoryCacheOptions()
+        private static MemoryCache _cache = new MemoryCache(new MemoryCacheOptions()
         {
             ExpirationScanFrequency = TIME_SPAN
         });
 
-        public TItem GetOrCreate(object key, Func<TItem> createItem)
+        public static TItem GetOrCreate(object key, Func<TItem> createItem)
         {
             if (!_cache.TryGetValue(key, out TItem cacheEntry))
             {
@@ -26,7 +26,7 @@ namespace PartnerWebApi.Data
             return cacheEntry;
         }
 
-        public bool Update(object key, TItem data)
+        public static bool Update(object key, TItem data)
         {
             if (!_cache.TryGetValue(key, out TItem cacheEntry))
             {

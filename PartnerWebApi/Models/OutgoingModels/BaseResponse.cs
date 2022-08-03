@@ -1,19 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web;
+﻿using System.Net;
 
 namespace PartnerWebApi.Models.OutgoingModels
 {
-    public class BaseResponse: HttpResponseMessage
+    public class BaseResponse
     {
         public string Message { get; set; }
+
         public bool IsError { get; set; }
 
-        public BaseResponse(HttpStatusCode statusCode, string message, bool isError = false) : base(statusCode)
+        public HttpStatusCode StatusCode { get; set; }
+
+        public BaseResponse(HttpStatusCode statusCode, string message, bool isError = false)
         {
+            StatusCode = statusCode;
             IsError = isError;
             Message = message;
         }

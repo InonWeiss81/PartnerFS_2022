@@ -8,13 +8,14 @@ using System.Web.Http;
 
 namespace PartnerWebApi.Controllers
 {
+    [RoutePrefix("api/customers")]
     public class CustomersController : ApiController
     {
         private const string ALL_CUSTOMERS = "customers";
 
-        [HttpGet]
+        [Route("getCustomerData")]
         [HttpPost]
-        public BaseResponse GetCustomerData(string idNumber)
+        public BaseResponse GetCustomerData([FromBody] string idNumber)
         {
             if (!InputValidation(idNumber))
             {
@@ -33,6 +34,7 @@ namespace PartnerWebApi.Controllers
             return new BaseResponse(System.Net.HttpStatusCode.OK, JsonConvert.SerializeObject(customer));
         }
 
+        [Route("updateCustomerAddress")]
         [HttpPost]
         public BaseResponse UpdateCustomerAddress([FromBody] string customer)
         {
@@ -93,12 +95,12 @@ namespace PartnerWebApi.Controllers
 
         private bool UpdateCache(Customers customers)
         {
-            return new CacheManager<Customers>().Update(ALL_CUSTOMERS, customers);
+            return CacheManager<Customers>.Update(ALL_CUSTOMERS, customers);
         }
 
         private Customers GetCustomersFromCacheOrFile()
         {
-            return new CacheManager<Customers>().GetOrCreate(ALL_CUSTOMERS, () => GetCustomersFromFile());
+            return CacheManager<Customers>.GetOrCreate(ALL_CUSTOMERS, () => GetCustomersFromFile());
         }
 
         private Customers GetCustomersFromFile()
@@ -117,7 +119,7 @@ namespace PartnerWebApi.Controllers
 
         private bool InputValidation(string israeliID)
         {
-            if (israeliID.Length > 9)
+            if (israeliID == null || israeliID.Length > 9)
             {
                 return false;
             }
