@@ -177,6 +177,7 @@
   <ItemGroup>
     <Content Include="Data\CustomersJson.json" />
     <None Include="packages.config" />
+    <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\IncomingModels\" />

@@ -19,28 +19,28 @@ namespace PartnerWebApi.Controllers
         {
             if (!InputValidation(idNumber))
             {
-                return new BaseResponse(System.Net.HttpStatusCode.BadRequest, "Invalid ID number", true);
+                return new BaseResponse(System.Net.HttpStatusCode.BadRequest, "מספר ת.ז. אינו תקין", true);
             }
             var customers = GetCustomersFromCacheOrFile();
             if (customers?.CustomersList == null)
             {
-                return new BaseResponse(System.Net.HttpStatusCode.InternalServerError, "Can't retrieve data from file", true);
+                return new BaseResponse(System.Net.HttpStatusCode.InternalServerError, "לא ניתן לקבל את פרטי הלקוח", true);
             }
             Customer customer = customers.GetCustomerByIdNumber(idNumber);
             if (customer == null)
             {
-                return new BaseResponse(System.Net.HttpStatusCode.NotFound, "Customer was not found", true);
+                return new BaseResponse(System.Net.HttpStatusCode.NotFound, "לקוח לא קיים במערכת", true);
             }
             return new BaseResponse(System.Net.HttpStatusCode.OK, JsonConvert.SerializeObject(customer));
         }
 
         [Route("updateCustomerAddress")]
         [HttpPost]
-        public BaseResponse UpdateCustomerAddress([FromBody] string customer)
+        public BaseResponse UpdateCustomerAddress([FromBody] Customer customerObject)
         {
             try
             {
-                Customer customerObject = JsonConvert.DeserializeObject<Customer>(customer);
+                //Customer customerObject = JsonConvert.DeserializeObject<Customer>(customer);
                 if (customerObject == null)
                 {
                     throw new JsonException();
@@ -50,18 +50,18 @@ namespace PartnerWebApi.Controllers
                 oldCustomer.Address = customerObject.Address;
                 if(!SaveCustomers(customers))
                 {
-                    return new BaseResponse(System.Net.HttpStatusCode.InternalServerError, "Couldn't update customer", true);
+                    return new BaseResponse(System.Net.HttpStatusCode.InternalServerError, "עדכון לקוח נכשל", true);
                 }
             }
             catch (JsonException)
             {
-                return new BaseResponse(System.Net.HttpStatusCode.BadRequest, "Invalid data supplied", true);
+                return new BaseResponse(System.Net.HttpStatusCode.BadRequest, "שגיאת נתונים", true);
             }
             catch (Exception)
             {
-                return new BaseResponse(System.Net.HttpStatusCode.BadRequest, "Customer was not found", true);
+                return new BaseResponse(System.Net.HttpStatusCode.BadRequest, "לקוח לא קיים", true);
             }
-            return new BaseResponse(System.Net.HttpStatusCode.OK, "Successfully updated");
+            return new BaseResponse(System.Net.HttpStatusCode.OK, "כתובת עודכנה בהצלחה!");
         }
 
         private bool SaveCustomers(Customers customers)
