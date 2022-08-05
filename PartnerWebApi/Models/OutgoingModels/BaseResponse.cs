@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using static PartnerWebApi.Models.Enums.ResponseMessages;
+using System.Net;
 
 namespace PartnerWebApi.Models.OutgoingModels
 {
@@ -10,16 +11,20 @@ namespace PartnerWebApi.Models.OutgoingModels
 
         public HttpStatusCode StatusCode { get; set; }
 
+        #region cTor
+        public BaseResponse(HttpStatusCode statusCode, Messages message, bool isError = false)
+        {
+            StatusCode = statusCode;
+            IsError = isError;
+            Message = TranslateMessage(message);
+        }
+
         public BaseResponse(HttpStatusCode statusCode, string message, bool isError = false)
         {
             StatusCode = statusCode;
             IsError = isError;
             Message = message;
         }
-
-        public BaseResponse(): this(HttpStatusCode.OK, "")
-        {
-            
-        }
+        #endregion
     }
 }

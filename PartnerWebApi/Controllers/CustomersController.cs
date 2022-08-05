@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using PartnerWebApi.Data;
+using static PartnerWebApi.Models.Enums.ResponseMessages;
 using PartnerWebApi.Models.OutgoingModels;
 using System;
 using System.IO;
@@ -19,18 +20,19 @@ namespace PartnerWebApi.Controllers
         {
             if (!InputValidation(idNumber))
             {
-                return new BaseResponse(System.Net.HttpStatusCode.BadRequest, "מספר ת.ז. אינו תקין", true);
+                return new BaseResponse(System.Net.HttpStatusCode.BadRequest, Messages.InvalidIdNumber, true);
             }
             var customers = GetCustomersFromCacheOrFile();
             if (customers?.CustomersList == null)
             {
-                return new BaseResponse(System.Net.HttpStatusCode.InternalServerError, "לא ניתן לקבל את פרטי הלקוח", true);
+                return new BaseResponse(System.Net.HttpStatusCode.InternalServerError, Messages.CustomerDatailsUnavailable, true);
             }
             Customer customer = customers.GetCustomerByIdNumber(idNumber);
             if (customer == null)
             {
-                return new BaseResponse(System.Net.HttpStatusCode.NotFound, "לקוח לא קיים במערכת", true);
+                return new BaseResponse(System.Net.HttpStatusCode.NotFound, Messages.CustomerNotExist, true);
             }
+            // this is where we retun the customer as json
             return new BaseResponse(System.Net.HttpStatusCode.OK, JsonConvert.SerializeObject(customer));
         }
 
@@ -40,30 +42,30 @@ namespace PartnerWebApi.Controllers
         {
             try
             {
-                //Customer customerObject = JsonConvert.DeserializeObject<Customer>(customer);
                 if (customerObject == null)
                 {
-                    throw new JsonException();
+                    return new BaseResponse(System.Net.HttpStatusCode.BadRequest, Messages.DataError, true);
                 }
                 var customers = GetCustomersFromCacheOrFile();
                 var oldCustomer = customers.GetCustomerByIdNumber(customerObject.IdNumber);
+                if (oldCustomer == null)
+                {
+                    return new BaseResponse(System.Net.HttpStatusCode.BadRequest, Messages.CustomerNotExist, true);
+                }
                 oldCustomer.Address = customerObject.Address;
                 if(!SaveCustomers(customers))
                 {
-                    return new BaseResponse(System.Net.HttpStatusCode.InternalServerError, "עדכון לקוח נכשל", true);
+                    return new BaseResponse(System.Net.HttpStatusCode.InternalServerError, Messages.CustomerUpdatedFailed, true);
                 }
-            }
-            catch (JsonException)
-            {
-                return new BaseResponse(System.Net.HttpStatusCode.BadRequest, "שגיאת נתונים", true);
             }
             catch (Exception)
             {
-                return new BaseResponse(System.Net.HttpStatusCode.BadRequest, "לקוח לא קיים", true);
+                return new BaseResponse(System.Net.HttpStatusCode.BadRequest, Messages.CustomerUpdatedFailed, true);
             }
-            return new BaseResponse(System.Net.HttpStatusCode.OK, "כתובת עודכנה בהצלחה!");
+            return new BaseResponse(System.Net.HttpStatusCode.OK, Messages.UpdateAddressSuccess);
         }
 
+        #region Private
         private bool SaveCustomers(Customers customers)
         {
             try
@@ -144,5 +146,6 @@ namespace PartnerWebApi.Controllers
                 return GetDouble(i - 5) + 1;
             }
         }
+        #endregion
     }
 }

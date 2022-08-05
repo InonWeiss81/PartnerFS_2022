@@ -154,13 +154,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Enums\ResponseMessages.cs" />
     <Compile Include="Models\OutgoingModels\Address.cs" />
     <Compile Include="Models\OutgoingModels\BaseResponse.cs" />
     <Compile Include="Models\OutgoingModels\Contract.cs" />
     <Compile Include="Models\OutgoingModels\Customer.cs" />
     <Compile Include="Models\OutgoingModels\Customers.cs" />
     <Compile Include="Models\OutgoingModels\Package.cs" />
-    <Compile Include="Models\OutgoingModels\PackageType.cs" />
+    <Compile Include="Models\Enums\PackageType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -179,9 +180,7 @@
     <None Include="packages.config" />
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\IncomingModels\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

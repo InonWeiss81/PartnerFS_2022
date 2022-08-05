@@ -1,4 +1,4 @@
-﻿namespace PartnerWebApi.Models.OutgoingModels
+﻿namespace PartnerWebApi.Models.Enums
 {
     public enum PackageType
     {
